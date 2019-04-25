@@ -19,8 +19,5 @@
     "typescript": "^3.4.4"
   },
   "author": "Peter Crona",
-  "license": "MIT",
-  "dependencies": {
-    "uuid": "^3.3.2"
-  }
+  "license": "MIT"
 }
