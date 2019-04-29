@@ -107,4 +107,17 @@ describe('Sprida', () => {
             [0, 1]
         );
     });
+
+    it('two strings belong to different groups with custom alphabet', () => {
+        const model = createModel('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789*-');
+
+        const groups = [
+            toGroup([1, 1], 'BZheS-2mSdSUgKvXyKCsdQ', model),
+            toGroup([1, 1], 'ukp8FgUt-cLVoe8R*BG5uQ', model),
+        ];
+
+        expect(groups).to.deep.equals(
+            [0, 1]
+        );
+    });
 });
