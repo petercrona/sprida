@@ -96,4 +96,15 @@ describe('Sprida', () => {
             [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1]
         );
     });
+
+    it('two uuid strings belong to different groups', () => {
+        const groups = [
+            toGroup([1, 1], '5251410c-004e-41c1-87ce-52ef98ee8ba9'),
+            toGroup([1, 1], 'a3273afc-004d-4433-b656-8cb069d7245b'),
+        ];
+
+        expect(groups).to.deep.equals(
+            [0, 1]
+        );
+    });
 });

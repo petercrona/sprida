@@ -54,12 +54,11 @@ const getBitsFromString = (symbolsNeeded: number, model: Model, processedString:
     return bitsFromString;
 }
 
-const mapGroupNumber = (weights: number[], symbolsNeeded: number, model: Model, group: number) => {
+const mapGroupNumber = (weights: number[], maxGroupNumber: number, group: number) => {
     const nrGroups = weights.length;
     const sumOfWeights = weights.reduce((x, y) => x + y, 0);
     const percentageWeights = weights.map(x => x / sumOfWeights);
-    const maxGroupNumber = Math.pow(2, symbolsNeeded * model.entropy);
-
+    
     const groupSizes = percentageWeights.map(percentage => {
         return Math.floor(percentage * maxGroupNumber);
     });
@@ -92,11 +91,12 @@ export const toGroup = (weights: number[], string: string, model: Model = uuid4M
     }
 
     const bitsOfStringToUse = Math.min(entropyBitsInString, 20);
-    const bitmask = Math.pow(2, bitsOfStringToUse) - 1;
+    const maxGroupNumber = Math.pow(2, bitsOfStringToUse);
+    const bitmask = maxGroupNumber - 1; // all 1s
 
     const symbolsNeeded = Math.ceil(bitsOfStringToUse / model.entropy);
     let bitsFromString = getBitsFromString(symbolsNeeded, model, processedString);
     const group = bitsFromString & bitmask;
 
-    return mapGroupNumber(weights, symbolsNeeded, model, group);
+    return mapGroupNumber(weights, maxGroupNumber, group);
 };
